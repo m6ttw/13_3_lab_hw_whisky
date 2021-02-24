@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class WhiskyTrackerApplicationTests {
@@ -31,5 +35,11 @@ public class WhiskyTrackerApplicationTests {
 
 		Whisky whisky1 = new Whisky("The Glendronach Revival", 15, 2018, distillery1);
 		whiskyRepository.save(whisky1);
+	}
+
+	@Test
+	public void canFindWhiskysByYear(){
+		List<Whisky> found = whiskyRepository.findWhiskysByYear(2018);
+		assertEquals(6, found.size());
 	}
 }
