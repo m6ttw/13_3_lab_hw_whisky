@@ -29,17 +29,21 @@ public class WhiskyTrackerApplicationTests {
 	}
 
 	@Test
-	public void createWhiskyAndDistillery(){
-		Distillery distillery1 = new Distillery("Glendronach", "Highland");
-		distilleryRepository.save(distillery1);
-
-		Whisky whisky1 = new Whisky("The Glendronach Revival", 15, 2018, distillery1);
-		whiskyRepository.save(whisky1);
+	public void canFindWhiskyByYear(){
+		List<Whisky> found = whiskyRepository.findWhiskyByYear(2014);
+		assertEquals(4, found.size());
 	}
 
 	@Test
-	public void canFindWhiskysByYear(){
-		List<Whisky> found = whiskyRepository.findWhiskiesByYear(2018);
-		assertEquals(6, found.size());
+	public void canFindDistilleryByRegion(){
+		List<Distillery> found = distilleryRepository.findDistilleriesByRegion("Island");
+		assertEquals(3, found.size());
+	}
+
+	@Test
+	public void canFindWhiskyByDistilleryAndAge(){
+		Distillery distillery12 = distilleryRepository.findDistilleryByName("Isle of Arran");
+		List<Whisky> found = whiskyRepository.findWhiskyFromDistilleryByAge(distillery12, 1);
+		assertEquals("Seven Wood", found.get(0).getName());
 	}
 }
