@@ -29,7 +29,7 @@ public class WhiskyController {
     @GetMapping(value="/whiskies/distillery/{id}/{age}")
     public ResponseEntity<List<Whisky>> getWhiskyFromDistilleryByAge(@PathVariable String name, @PathVariable int age){
         Distillery distillery = distilleryRepository.findDistilleryByName(name);
-        return new ResponseEntity<>(whiskyRepository.findWhiskyFromDistilleryByAge(distillery, age), HttpStatus.OK);
+        return new ResponseEntity<>(whiskyRepository.findWhiskyByDistilleryAndAge(distillery, age), HttpStatus.OK);
 
     }
 }
